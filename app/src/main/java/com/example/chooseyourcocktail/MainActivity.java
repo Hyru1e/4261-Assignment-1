@@ -1,18 +1,24 @@
 package com.example.chooseyourcocktail;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
+import android.util.Log;
 
+import java.util.List;
 
-public class MainActivity extends Activity  {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+public class MainActivity extends Activity {
     Button b1,b2;
     EditText ed1,ed2;
 
@@ -31,6 +37,36 @@ public class MainActivity extends Activity  {
         b2 = (Button)findViewById(R.id.button2);
         //tx1 = (TextView)findViewById(R.id.textView3);
         //tx1.setVisibility(View.GONE);
+
+        Retrofit retrofit = new Retrofit.Builder()
+         .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka").build();
+
+        Call<List> call = CockTailAPI.getPosts();
+
+        call.enqueue(new Callback<List>() {
+            @Override
+            public void onResponse(Call<List> call, Response<List> response) {
+
+                if (response.isSuccessful()) {
+                    List posts = response.body();
+                    Log.d("Success", (String) posts.get(1));
+                    TextView textView = findViewById(R.id.text);
+                    textView.setText(posts.get(1).toString());
+                } else {
+                    Log.d("Yo", "Boo!");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List> call, Throwable t) {
+                Log.d("Yo", "Errror!");
+            }
+
+        });
+
+
+        Log.d("Yo","Hello!");
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
