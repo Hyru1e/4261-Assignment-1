@@ -13,9 +13,16 @@ import android.content.Intent;
 
 public class SearchActivity extends Activity {
 
+    Button search;
+    EditText alcohol, mixer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        search = (Button)findViewById(R.id.searchButton);
+        alcohol = (EditText)findViewById(R.id.alcohol);
+        mixer = (EditText)findViewById(R.id.mixer);
     }
 }
