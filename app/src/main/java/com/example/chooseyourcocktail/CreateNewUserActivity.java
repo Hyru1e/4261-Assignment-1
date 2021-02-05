@@ -26,7 +26,7 @@ public class CreateNewUserActivity extends Activity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), SearchActivity.class);
+                Intent myIntent = new Intent(v.getContext(), MainActivity.class);
                 startActivityForResult(myIntent, 0);
             }
         });
